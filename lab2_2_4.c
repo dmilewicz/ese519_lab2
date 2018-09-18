@@ -20,6 +20,7 @@
 
 
 void main() {
+	//BG Comment
     uart_init();
 
     DDRB |= _BV(OUT);
