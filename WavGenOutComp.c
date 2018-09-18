@@ -25,5 +25,5 @@ ISR(TIMER0_COMPA_vect){
     OCR0A = (TCNT0 + 70); //Determines new OCR0A to maintain 440 Hz=
   }
 
-
+//I made a change - BG
 //Compare match interrupt enabled
