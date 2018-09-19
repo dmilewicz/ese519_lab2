@@ -20,7 +20,7 @@ void adc_init() {
 }
 
 uint8_t adc_bucket(unsigned int input) {
-    return (int8_t) ((input - ADC_MIN)/ ((float)(ADC_MAX - ADC_MIN) / NUM_BUCKETS));
+    return (uint8_t) ((input - ADC_MIN)/ ((float)(ADC_MAX - ADC_MIN) / NUM_BUCKETS));
 }
 
 #endif //LAB2_ADC_H

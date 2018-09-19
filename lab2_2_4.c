@@ -14,8 +14,6 @@ volatile unsigned int oca_i = 0;
 uint8_t mode_toggle = 1;
 int counter = 0;
 
-
-
 ISR(ADC_vect) {
     if (counter % 30 == 0) {
         oca = range_convert(ADC);
@@ -33,8 +31,6 @@ ISR(TIMER0_COMPA_vect) {
         OCR0A = note_list[oca_i];
     }
 }
-
-
 
 
 void main() {
