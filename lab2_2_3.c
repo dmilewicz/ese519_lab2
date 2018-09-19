@@ -12,16 +12,16 @@ int counter = 0;
 
 ISR(ADC_vect) {
     if (counter % 30 == 0)
-        OCR0A = range_convert(ADC);
+        oca = range_convert(ADC);
     counter++;
 //    OCR0A+=5;
 //    printf("result %d\n\n", OCR0A);
     ADCSRA |= _BV(ADSC);
 }
 
-//ISR(TIMER0_COMPA_vect) {
-//    OCR0A = oca;
-//}
+ISR(TIMER0_COMPA_vect) {
+    OCR0A = oca;
+}
 
 void adc_init() {
     ADMUX |= _BV(REFS0); // reference V
@@ -34,8 +34,8 @@ void timer_init() {
     DDRD = _BV(PD6); //Setting output pin
 
     TCCR0A = _BV(WGM02) | _BV(COM0A0); //Set CTC bits
-    OCR0A = OCA_HIGH; //arbitrary initial value
-    TCCR0B = (1 << CS01) | _BV(CS00); //Set prescaler to 64
+    OCR0A = OCA_LOW; //arbitrary initial value
+    TCCR0B = _BV(CS01) | _BV(CS00); //Set prescaler to 64
 //    TIMSK0 = (1 << OCIE0A); //Interrupt mask set bit
 }
 

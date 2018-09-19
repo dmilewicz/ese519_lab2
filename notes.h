@@ -25,10 +25,21 @@
 
 #define RATIO       (float)(OCA_HIGH - OCA_LOW) / (float)(INPUT_HIGH - INPUT_LOW)
 
+uint8_t note_list = {C6_OCR, D6_OCR, E6_OCR, F6_OCR, G6_OCR, A6_OCR, B6_OCR, C7_OCR};
+
 
 uint8_t range_convert(unsigned int input) {
     return (RATIO * input) + OCA_LOW;
 }
+
+
+int list_index(unsigned int input) {
+    // get list length
+    size_t list_len = sizeof(note_list) / sizeof(note_list[0]);
+
+    return (int) ((input - INPUT_LOW)/ ((float)(INPUT_HIGH - INPUT_LOW) / list_len));
+}
+
 
 
 

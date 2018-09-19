@@ -7,7 +7,7 @@ int main(void)
 
     TCCR0A = _BV(WGM02) | _BV(COM0A0); //Set CTC bits
     OCR0A = 70; //Comparator value
-    TCCR0B = (1 << CS01) | _BV(CS00); //Set prescaler to 256
+    TCCR0B = (1 << CS02); //Set prescaler to 256
 
     while(1){}
 }
