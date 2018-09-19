@@ -15,7 +15,9 @@ void dac_init() {
 
 
 ISR(ADC_vect) {
+    printf("bucket %d\n", (adc_bucket(ADC)));
     PORTB = (PORTB & ~DAC_OUT) | (adc_bucket(ADC) << PB2);
+    ADCSRA |= _BV(ADSC);
 }
 
 int main() {

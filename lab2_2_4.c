@@ -6,6 +6,7 @@
 #include <avr/interrupt.h>
 #include "uart.h"
 #include "adc.h"
+#include "ping.h"
 #include "notes.h"
 
 
@@ -32,6 +33,12 @@ ISR(TIMER0_COMPA_vect) {
     }
 }
 
+int c = 0;
+
+ISR(TIMER1_CAPT_vect) {
+    printf("hello%d\n", c++);
+    mode_toggle ^= 1;
+}
 
 void main() {
     uart_init();
@@ -42,10 +49,8 @@ void main() {
     timer_init();
 
     PORTB = _BV(PB0);
+    listen_rise();
 
     while(1) {
-        if (!(PINB & _BV(PB0))){
-            mode_toggle ^= _BV(0);
-        }
     }
 }

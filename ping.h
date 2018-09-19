@@ -101,44 +101,44 @@ uint32_t ticks_to_time_us(uint32_t tick_count) {
 
 // *******************************************************
 
-// count the overflows
-ISR(TIMER1_OVF_vect)
-{
-    overflow_counter++;
-    //printf("OVERFLOW %d!\n", overflow_counter);
-}
-
-ISR(TIMER1_CAPT_vect)
-{
-    // check if found rising edge
-    if (TCCR1B & _BV(ICES1)) {
-        start_count = load_int16(ICR1H, ICR1L); // load 16 bit integer
-        init_count_overflows();
-        listen_fall();
-    }
-        // check if found falling edge
-    else {
-        end_count = load_int16(ICR1H, ICR1L);
-//        if (count % 20 ==0) {
-//            printf("end: %lu\n", end_count);}
-        uint32_t ticks = calculate_ticks(start_count, end_count, overflow_counter);
-        uint32_t time = ticks_to_time_us(ticks);
-        close_listen();
-//        if (count % 20 ==0) {
-        // printf("Ticks: %lu\n", ticks);
-
-        printf("ping width: %lu us\n\n", time);
-//    	}
-        count++;
-        ping_5ms();
-    }
-}
-
-ISR(TIMER1_COMPA_vect)
-{
-    close_ping();
-    listen_rise();
-}
+//// count the overflows
+//ISR(TIMER1_OVF_vect)
+//{
+//    overflow_counter++;
+//    //printf("OVERFLOW %d!\n", overflow_counter);
+//}
+//
+//ISR(TIMER1_CAPT_vect)
+//{
+//    // check if found rising edge
+//    if (TCCR1B & _BV(ICES1)) {
+//        start_count = load_int16(ICR1H, ICR1L); // load 16 bit integer
+//        init_count_overflows();
+//        listen_fall();
+//    }
+//        // check if found falling edge
+//    else {
+//        end_count = load_int16(ICR1H, ICR1L);
+////        if (count % 20 ==0) {
+////            printf("end: %lu\n", end_count);}
+//        uint32_t ticks = calculate_ticks(start_count, end_count, overflow_counter);
+//        uint32_t time = ticks_to_time_us(ticks);
+//        close_listen();
+////        if (count % 20 ==0) {
+//        // printf("Ticks: %lu\n", ticks);
+//
+//        printf("ping width: %lu us\n\n", time);
+////    	}
+//        count++;
+//        ping_5ms();
+//    }
+//}
+//
+//ISR(TIMER1_COMPA_vect)
+//{
+//    close_ping();
+//    listen_rise();
+//}
 
 
 
