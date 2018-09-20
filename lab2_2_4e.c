@@ -43,13 +43,10 @@ ISR(TIMER1_CAPT_vect)
         uint32_t ticks = calculate_ticks(start_count, end_count, overflow_counter);
         uint32_t time = ticks_to_time_us(ticks);
         close_listen();
-	    printf("ping width: %lu us\n\n", time);
-
-
+//	    printf("ping width: %lu us\n\n", time);
 
         oca = range_convert(time);
         oca_i = list_index(time);
-
     	count++;
         ping_5ms();
     }
@@ -80,7 +77,7 @@ void main() {
     DDRB &= _CV(IN);
 
     // enable button pull-up
-    PORTB &= _BV(PB5);
+    PORTB |= _BV(PB5);
 
     sei();
 

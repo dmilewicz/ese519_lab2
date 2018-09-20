@@ -9,8 +9,8 @@
 
 #define NUM_BUCKETS  8
 
-#define ADC_MIN 0
-#define ADC_MAX 1024
+#define ADC_MIN 300
+#define ADC_MAX 900
 
 void adc_init() {
     ADMUX |= _BV(REFS0); // reference V
@@ -20,6 +20,13 @@ void adc_init() {
 }
 
 uint8_t adc_bucket(unsigned int input) {
+    if (input < ADC_MIN) {
+        return 0;
+    } if (input > ADC_MAX) {
+        return NUM_BUCKETS - 1;
+    }
+
+
     return (uint8_t) ((input - ADC_MIN)/ ((float)(ADC_MAX - ADC_MIN) / NUM_BUCKETS));
 }
 

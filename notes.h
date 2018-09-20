@@ -23,7 +23,7 @@
 
 #if defined(ECHO)
 
-#define INPUT_HIGH       3000
+#define INPUT_HIGH       4000
 #define INPUT_LOW        100
 
 #elif defined(ADC)

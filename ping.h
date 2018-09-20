@@ -34,7 +34,7 @@ void ping_5ms() {
     TIMSK1 |= _BV(OCIE1A); // set the interrupt flag
     OCR1A = PING_OCR; // set counter
     TCNT1 = 0; // reset counter
-    PORTB |= _BV(OUT); // set output high
+//    PORTB |= _BV(OUT); // set output high
     TCCR1B = _BV(CS10); // start clock without prescaler
 }
 
