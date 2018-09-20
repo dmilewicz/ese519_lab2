@@ -7,6 +7,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "uart.h"
+#include "notes.h"
 #include "ping.h"
 
 #define PING_OCR     80
@@ -16,6 +17,8 @@
 #define TIMER_MAX    65535 // 2^16 -1
 #define TICKS_PER_US 16
 
+
+volatile uint32_t oca = 0;
 
 // *******************************************************
 
@@ -40,6 +43,8 @@ ISR(TIMER1_CAPT_vect)
         uint32_t time = ticks_to_time_us(ticks);
         close_listen();
 	    printf("ping width: %lu us\n\n", time);
+        oca = range_convert(time);
+
     	count++;
         ping_5ms();
     }
@@ -51,11 +56,16 @@ ISR(TIMER1_COMPA_vect)
     listen_rise();
 }
 
+ISR(TIMER0_COMPA_vect) {
+    OCR0A = oca;
+}
+
 // *************************************
 
 
 void main() {
     uart_init();
+    timer_init();
 
     DDRB |= _BV(OUT);
     DDRB &= _CV(IN);

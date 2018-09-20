@@ -1,12 +1,17 @@
 //
 // Created by David Milewicz on 9/18/18.
 //
+
+#define ADC
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include "adc.h"
 #include "uart.h"
 #include "notes.h"
 
 volatile unsigned int oca = 0;
+
 int counter = 0;
 
 ISR(ADC_vect) {
@@ -31,8 +36,6 @@ void main() {
 
     while(1) {
     }
-
-
 }
 
 
